@@ -4,7 +4,7 @@ from jinja2 import Template
 
 
 def prepare_inits(test_name):
-    logging.debug('active dir: '+os.getcwd())
+    logging.debug('active dir: ' + os.getcwd())
     with open(r'test_data/__init__.py', 'w') as f:
         pass
     with open(r'scripts/__init__.py', 'w') as f:
@@ -20,7 +20,6 @@ def prepare_dirs(test_name):
     except FileExistsError:
         logging.debug('nie udało się utworzyć folderu z powodu istnienia już folderu o tej samej nazwie')
 
-
     os.chdir(test_name)
     try:
         os.mkdir('scripts')
@@ -32,7 +31,7 @@ def prepare_dirs(test_name):
         logging.debug('nie udało się utworzyć folderu z powodu istnienia już folderu o tej samej nazwie')
 
 
-def prep_steps():
+def prep_steps(test):
     template = Template('''
 # -*- coding: utf-8 -*-
 """
@@ -72,7 +71,7 @@ class {test.name}(BaseSteps):
         f"Verify that MotorWidget1 acceleration value is equal to {BaseValues.MOTOR_WIDGET_1.ACCELERATION}",
     )
     ''')
-    print(template.render(steps=steps, test=test_data))
+    print(template.render(steps=test.steps))  # , test=test.test_data)) TODO potrzebne?
     pass
 
 
@@ -80,7 +79,7 @@ def prep_config():
     pass
 
 
-def prep_rp():
+def prep_remote_projects():
     pass
 
 
@@ -93,14 +92,15 @@ def prep_test():
     pass
 
 
-def prepare_py_files():
-    prep_steps()
+def prepare_py_files(test):
+    prep_steps(test)
     prep_config()
-    prep_rp()
+    prep_remote_projects()
     prep_classes_with_data()
     prep_test()
+
 
 def prepare_files(test_name):
     prepare_dirs(test_name)
     prepare_inits(test_name)
-    prepare_py_files()
+    prepare_py_files(test)

@@ -1,7 +1,8 @@
-from test_data import TestData
+import test_data
 import logging as l
 from logging_add_ons import log_variable
-# TODO zamienić to na klasę test z wszystkimi metodami oraz zmiennymi
+# TODO zamienić to na klasę test z wszystkimi metodami oraz zmiennymi/ średni pomysl
+
 
 def get_integer_input(prompt):
     while True:
@@ -30,7 +31,7 @@ def prepare_class_name_variations(test):
         test.test_class_name += 'RT'
     else:
         test.test_class_name += 'DT'
-    # TODO uzupełnić resztę przypadków
+    # TODO uzupełnić resztę przypadków, opcja DTRT
 
 
 def prepare_rt_dt_type(test):
@@ -41,19 +42,22 @@ def prepare_rt_dt_type(test):
 
 
 def place_by_hand():
-    test = TestData()
-
+    """
+    Function filling test data from data inserted by user
+    """
     prepare_test_name(input("podaj nazwę twojego testu, skopiowana z tytułu"))
-    log_variable(test.test_name_list)
-    prepare_rt_dt_type(test)
-    prepare_class_name_variations(test)
+    log_variable(test_data.test_name_list)
+    prepare_rt_dt_type(test_data)
+    prepare_class_name_variations(test_data)
 
     number_of_steps = get_integer_input("podaj liczbę kroków w twoim teście")
     log_variable(number_of_steps)
-    prepare_test_steps_list(number_of_steps, test)
-    log_variable(test.steps)
-    return test
+    prepare_test_steps_list(number_of_steps, test_data)
+    log_variable(test_data.steps)
 
 
 def get_from_web():
+    """
+    Function filling test data from data downloaded from web page
+    """
     pass
