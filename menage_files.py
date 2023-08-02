@@ -1,6 +1,7 @@
 import os
 import logging
 from jinja2 import Template
+import test_data as test
 
 
 def prepare_inits(test_name):
@@ -13,14 +14,14 @@ def prepare_inits(test_name):
         pass
 
 
-def prepare_dirs(test_name):
+def prepare_dirs():
     try:
-        os.mkdir(test_name)
+        os.mkdir(test.test_name_snake_case)
         logging.debug('udało się utworzyć folder')
     except FileExistsError:
         logging.debug('nie udało się utworzyć folderu z powodu istnienia już folderu o tej samej nazwie')
 
-    os.chdir(test_name)
+    os.chdir(test.test_name_snake_case)
     try:
         os.mkdir('scripts')
     except FileExistsError:
@@ -31,7 +32,7 @@ def prepare_dirs(test_name):
         logging.debug('nie udało się utworzyć folderu z powodu istnienia już folderu o tej samej nazwie')
 
 
-def prep_steps(test):
+def prep_steps():
     template = Template('''
 # -*- coding: utf-8 -*-
 """
@@ -92,15 +93,15 @@ def prep_test():
     pass
 
 
-def prepare_py_files(test):
-    prep_steps(test)
+def prepare_py_files():
+    prep_steps()
     prep_config()
     prep_remote_projects()
     prep_classes_with_data()
     prep_test()
 
 
-def prepare_files(test_name):
-    prepare_dirs(test_name)
-    prepare_inits(test_name)
-    prepare_py_files(test)
+def prepare_files():
+    prepare_dirs()
+    prepare_inits()
+    prepare_py_files()

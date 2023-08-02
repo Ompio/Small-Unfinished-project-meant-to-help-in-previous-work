@@ -3,6 +3,7 @@ import inspect
 
 
 def log_variable(var):
+    # TODO obczić inspect module ale w nowym pliku zeby wszystko nie latało
     caller_frame = inspect.currentframe().f_back
     caller_locals = caller_frame.f_locals
     for name, value in caller_locals.items():
